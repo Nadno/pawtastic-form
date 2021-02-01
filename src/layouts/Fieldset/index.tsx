@@ -4,7 +4,7 @@ import './index.scss';
 interface Props {
   id: string;
   title: string;
-  children: any;
+  children?: any;
   [propName: string]: any;
 }
 
