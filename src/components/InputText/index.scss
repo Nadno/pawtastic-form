@@ -1,0 +1,35 @@
+.input-text {
+  width: 100%;
+  margin-top: 1rem;
+
+  .input-title {
+    font-size: 1.6rem;
+    color: var(--color-light-secondary);
+  }
+
+  span,
+  label {
+    display: block;
+  }
+
+  input {
+    width: inherit;
+    height: 5.4rem;
+    font-size: 2rem;
+
+    padding: 0.6rem 1rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--color-dark-primary);
+
+    margin-top: 0.6rem;
+
+    &:focus {
+      border-color: var(--color-secondary);
+    }
+
+    &::placeholder {
+      opacity: 0.5;
+      color: var(--color-tertiary);
+    }
+  }
+}
