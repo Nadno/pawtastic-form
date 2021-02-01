@@ -7,6 +7,7 @@ import LeftSide from './layouts/LeftSide';
 
 import Form from './layouts/Form';
 import Fieldset from './layouts/Fieldset';
+import Checkbox from './components/Checkbox';
 
 function App() {
   const [formData, setFormData] = useState({});
@@ -92,6 +93,7 @@ function App() {
         <Fieldset
           id="second"
           title="Good news! We care for pets in your area. Let's"
+          hidden
         >
           <InputText
             type="email"
@@ -121,99 +123,59 @@ function App() {
             />
           </div>
 
-          <div className="check__field">
-            <input type="checkbox" id="policy" name="policy" />
-            <div className="label__field">
-              <label htmlFor="policy" className="input__title">
-                <span className="check"></span>
-                <span className="check__content">
-                  I have read the Privacy and agree to the Terms of Service.
-                </span>
-              </label>
-              <span className="input__error"></span>
-            </div>
-          </div>
+          <Checkbox
+            id="policy"
+            name="policy"
+            label="I have read the Privacy and agree to the Terms of Service."
+          />
         </Fieldset>
 
-        <fieldset id="third" hidden>
-          <legend>
-            <h2 className="step__tittle">
-              Hello! Please tell us a little bit about yourself.
-            </h2>
-          </legend>
-
-          <div className="field__block">
-            <div className="input__field">
-              <label htmlFor="first-name" className="input__title">
-                First name
-              </label>
-
-              <input
-                type="text"
-                id="first-name"
-                name="first-name"
-                placeholder="Your first name"
-              />
-              <span className="input__error"></span>
-            </div>
-
-            <div className="input__field">
-              <label htmlFor="last-name" className="input__title">
-                Last name
-              </label>
-
-              <input
-                type="text"
-                id="last-name"
-                name="last-name"
-                placeholder="Your last name"
-              />
-              <span className="input__error"></span>
-            </div>
-          </div>
-
-          <div className="field__block">
-            <div className="input__field">
-              <label htmlFor="phone" className="input__title">
-                Phone
-              </label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                placeholder="01 90000-0000"
-              />
-              <span className="input__error"></span>
-            </div>
-
-            <div className="input__field">
-              <label htmlFor="alt-phone" className="input__title">
-                Phone alt
-              </label>
-              <input
-                type="text"
-                id="alt-phone"
-                name="alt-phone"
-                placeholder="01 90000-0000"
-              />
-              <span className="input__error"></span>
-            </div>
-          </div>
-
-          <div className="input__field">
-            <label htmlFor="cpf" className="input__title">
-              CPF
-            </label>
-
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              placeholder="000.000.000-00"
+        <Fieldset
+          id="third"
+          title="Hello! Please tell us a little bit about yourself."
+        >
+          <div className="step__field-block">
+            <InputText
+              id="first-name"
+              name="firstName"
+              label="First name"
+              handleInput={handleInput}
+              placeholder="Your first name"
             />
-            <span className="input__error"></span>
+            <InputText
+              id="last-name"
+              name="lastName"
+              label="Last name"
+              handleInput={handleInput}
+              placeholder="Your last name"
+            />
           </div>
-        </fieldset>
+
+          <div className="step__field-block">
+            <InputText
+              id="phone"
+              name="phone"
+              label="Phone"
+              handleInput={handleInput}
+              placeholder="01 90000-0000"
+            />
+            <InputText
+              id="alt-phone"
+              name="altPhone"
+              label="Phone alt"
+              handleInput={handleInput}
+              placeholder="01 90000-0000"
+            />
+          </div>
+          
+          <InputText
+            id="cpf"
+            name="cpf"
+            label="CPF"
+            handleInput={handleInput}
+            placeholder="000.000.000-00"
+          />
+        </Fieldset>
 
         <fieldset id="fourth" hidden>
           <legend>
@@ -491,92 +453,33 @@ function App() {
           </div>
         </fieldset>
 
-        <fieldset id="sixth" hidden>
-          <legend>
-            <h2 className="step__tittle">
-              Thanks! Now give us all the details about Ginger.
-            </h2>
-          </legend>
-
-          <div>
-            <span className="input__title">Favorite things</span>
-            <div className="check__block">
-              <div className="check__field">
-                <input type="checkbox" id="select-all" name="favorite-things" />
-                <label htmlFor="select-all" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Select all</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="kisses" name="favorite-things" />
-                <label htmlFor="kisses" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Giving kisses</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="walk" name="favorite-things" />
-                <label htmlFor="walk" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Walks</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="barking" name="favorite-things" />
-                <label htmlFor="barking" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Barking</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="snuggling" name="favorite-things" />
-                <label htmlFor="snuggling" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Snuggling</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="treats" name="favorite-things" />
-                <label htmlFor="treats" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Treats</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input
-                  type="checkbox"
-                  id="playing-fetch"
-                  name="favorite-things"
-                />
-                <label htmlFor="playing-fetch" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Playing fetch</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="naps" name="favorite-things" />
-                <label htmlFor="naps" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Naps</span>
-                </label>
-              </div>
-
-              <div className="check__field">
-                <input type="checkbox" id="toys" name="favorite-things" />
-                <label htmlFor="toys" className="input__title">
-                  <span className="check"></span>
-                  <span className="check__content">Toys</span>
-                </label>
-              </div>
-            </div>
+        <Fieldset
+          id="sixth"
+          title="Thanks! Now give us all the details about Ginger."
+          hidden
+        >
+          <div id="favorite-things" title="Favorite things">
+            <Checkbox
+              id="select-all"
+              name="favorite-things"
+              label="Select all"
+            />
+            <Checkbox
+              id="kisses"
+              name="favorite-things"
+              label="Giving kisses"
+            />
+            <Checkbox id="walk" name="favorite-things" label="Walks" />
+            <Checkbox id="barking" name="favorite-things" label="Barking" />
+            <Checkbox id="snuggling" name="favorite-things" label="Snuggling" />
+            <Checkbox id="treats" name="favorite-things" label="Treats" />
+            <Checkbox
+              id="playing-fetch"
+              name="favorite-things"
+              label="Playing fetch"
+            />
+            <Checkbox id="naps" name="favorite-things" label="Naps" />
+            <Checkbox id="toys" name="favorite-things" label="Toys" />
           </div>
 
           <div className="text__field">
@@ -590,14 +493,13 @@ function App() {
               placeholder="Type here"
             ></textarea>
           </div>
-        </fieldset>
+        </Fieldset>
 
-        <fieldset id="seventh" hidden>
-          <h1 className="step__tittle" style={{ margin: 'auto 0' }}>
-            Okay, Ginger's all set! <br />
-            We can't wait to meet het.
-          </h1>
-        </fieldset>
+        <Fieldset
+          id="seventh"
+          title="Okay, Ginger's all set! We can't wait to meet het."
+          hidden
+        ></Fieldset>
 
         <footer className="form__footer">
           <div className="step__buttons">
