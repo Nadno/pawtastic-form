@@ -2,7 +2,7 @@
   width: 100%;
   margin-top: 1rem;
 
-  .input-title {
+  &__title {
     font-size: 1.6rem;
     color: var(--color-light-secondary);
   }
@@ -32,4 +32,24 @@
       color: var(--color-tertiary);
     }
   }
+
+  &.error {
+    .input-text__title {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    input {
+      border-color: var(--color-tertiary);
+    }
+  }
+  
+  .error-field {
+    font-size: 1.6rem;
+    margin-top: 0.5rem;
+    color: var(--color-tertiary);
+  
+    display: flex;
+  }
 }
+
