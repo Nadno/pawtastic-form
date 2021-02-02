@@ -1,0 +1,11 @@
+.option-image {
+  min-width: 4rem;
+  max-width: 8rem;
+
+  &__none {
+    height: 8rem;
+    border-radius: 50%;
+    background-color: gray;
+    margin: 0;
+  }
+}
