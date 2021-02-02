@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 interface UseForm<ini> {
   initialValues: ini;
@@ -9,13 +9,17 @@ export default function useForm<iniValues>({
   initialValues,
   validate,
 }: UseForm<iniValues>) {
-  const [errors, setErros] = useState({});
-  const [values, setValues] = useState<{ [prop: string]: any }>(initialValues);
+  const [errors, setErros] = useState<{ [x: string]: any }>({});
+  const [values, setValues] = useState<{ [x: string]: any }>(initialValues);
   const [changedValue, setChangedValue] = useState('');
 
   useEffect(() => {
     validateValues(changedValue, values);
   }, [values]);
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+  }
 
   function handleChange(e: ChangeEvent) {
     const target = e.target as HTMLInputElement;
@@ -41,6 +45,7 @@ export default function useForm<iniValues>({
   return {
     errors,
     values,
+    handleSubmit,
     handleChange,
   };
 }
