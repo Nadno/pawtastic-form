@@ -5,24 +5,32 @@ interface Props {
   id: string;
   name: string;
   label: string;
+  error?: string;
   handleChange(e: ChangeEvent): void;
   [propName: string]: any;
 }
 
-const InputText = ({ id, name, label, handleChange, ...props }: Props) => {
+const InputText = ({
+  id,
+  name,
+  label,
+  error,
+  handleChange,
+  ...props
+}: Props) => {
   return (
-    <div className="input-text">
-      <label htmlFor={id} className="input-title">
+    <div className={`input-text ${error && 'error'}`}>
+      <label htmlFor={id} className="input-text__title">
         {label}
       </label>
       <input
         type="text"
         id={id}
-        name={name}        
+        name={name}
         onChange={handleChange}
         {...props}
       />
-      <span className="input__error"></span>
+      {error && <span className="error-field">{error}</span>}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 .check-field {
-  label {
+  &__title {
     display: flex;
     align-items: center;
   }
@@ -50,4 +50,17 @@
     }
   }
 
+  .error-field {
+    margin-top: 0.5rem;
+    margin-left: 2.8rem;
+  }
+
+}
+
+.error-field {
+  font-size: 1.6rem;
+  margin-top: 0.5rem;
+  color: var(--color-tertiary);
+
+  display: flex;
 }

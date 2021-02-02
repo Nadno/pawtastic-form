@@ -5,11 +5,12 @@ interface Props {
   id: string;
   name: string;
   label: string;
+  error?: string;
   value?: boolean;
   handleChange(e: ChangeEvent): void;
 }
 
-const Checkbox = ({ id, name, label, value, handleChange }: Props) => {
+const Checkbox = ({ id, name, label, error, value, handleChange }: Props) => {
   return (
     <div className="check-field">
       <input type="checkbox" id={id} name={name} checked={value} onChange={handleChange} />
@@ -20,7 +21,7 @@ const Checkbox = ({ id, name, label, value, handleChange }: Props) => {
             {label}
           </span>
         </label>
-        <span className="input__error"></span>
+        {error && <span className="error-field">{error}</span>}
       </div>
     </div>
   );
