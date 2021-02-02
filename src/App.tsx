@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 import Button from './components/Button';
 import InputText from './components/InputText';
 
@@ -8,18 +8,24 @@ import LeftSide from './layouts/LeftSide';
 import Form from './layouts/Form';
 import Fieldset from './layouts/Fieldset';
 import Checkbox from './components/Checkbox';
+import Select from './components/Select';
+import PetType from './components/PetType';
+
+import validate from './utils/validate';
+import useForm from './utils/useForm';
+
+import { MyFormData } from './interfaces/form';
 
 function App() {
-  const [formData, setFormData] = useState({});
-
-  const handleInput = (e: ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-
-    setFormData({
-      ...formData,
-      [target.name]: target.value,
-    });
-  };
+  const { values, errors, handleChange } = useForm<MyFormData>({
+    initialValues: {
+      email: '',
+      password: '',
+      confirm: '',
+      policy: false,
+    },
+    validate,
+  });
 
   return (
     <div className="App">
@@ -85,7 +91,7 @@ function App() {
             id="zip-code"
             name="zip-code"
             label="Zip code"
-            handleInput={handleInput}
+            handleChange={handleChange}
             placeholder="Enter your answer"
           />
         </Fieldset>
@@ -93,14 +99,14 @@ function App() {
         <Fieldset
           id="second"
           title="Good news! We care for pets in your area. Let's"
-          hidden
         >
           <InputText
             type="email"
             id="email"
             name="email"
             label="E-mail"
-            handleInput={handleInput}
+            value={values.email}
+            handleChange={handleChange}
             placeholder="Enter your e-mail"
           />
 
@@ -110,7 +116,8 @@ function App() {
               id="password"
               name="password"
               label="Password"
-              handleInput={handleInput}
+              value={values.password}
+              handleChange={handleChange}
               placeholder="••••••••"
             />
             <InputText
@@ -118,7 +125,8 @@ function App() {
               id="confirm"
               name="confirm"
               label="Confirm password"
-              handleInput={handleInput}
+              value={values.confirm}
+              handleChange={handleChange}
               placeholder="••••••••"
             />
           </div>
@@ -126,6 +134,8 @@ function App() {
           <Checkbox
             id="policy"
             name="policy"
+            value={values.policy}
+            handleChange={handleChange}
             label="I have read the Privacy and agree to the Terms of Service."
           />
         </Fieldset>
@@ -133,20 +143,21 @@ function App() {
         <Fieldset
           id="third"
           title="Hello! Please tell us a little bit about yourself."
+          hidden
         >
           <div className="step__field-block">
             <InputText
               id="first-name"
               name="firstName"
               label="First name"
-              handleInput={handleInput}
+              handleChange={handleChange}
               placeholder="Your first name"
             />
             <InputText
               id="last-name"
               name="lastName"
               label="Last name"
-              handleInput={handleInput}
+              handleChange={handleChange}
               placeholder="Your last name"
             />
           </div>
@@ -156,108 +167,54 @@ function App() {
               id="phone"
               name="phone"
               label="Phone"
-              handleInput={handleInput}
+              handleChange={handleChange}
               placeholder="01 90000-0000"
             />
             <InputText
               id="alt-phone"
               name="altPhone"
               label="Phone alt"
-              handleInput={handleInput}
+              handleChange={handleChange}
               placeholder="01 90000-0000"
             />
           </div>
-          
+
           <InputText
             id="cpf"
             name="cpf"
             label="CPF"
-            handleInput={handleInput}
+            handleChange={handleChange}
             placeholder="000.000.000-00"
           />
         </Fieldset>
 
-        <fieldset id="fourth" hidden>
-          <legend>
-            <h2 className="step__tittle">
+        <Fieldset
+          id="fourth"
+          title={
+            <>
               Nice to meet you, Name. <br />
               Tell us all about your furry, feathery, or scaley friend.
-            </h2>
-          </legend>
-
-          <div className="select__field">
+            </>
+          }
+          hidden
+        >
+          <div className="select-field">
             <h2 className="input__title">Kind of your pet</h2>
 
-            <div className="select four-columns" id="pet-type">
-              <input type="radio" name="pet-type" id="dog" value="dog" />
-              <label htmlFor="dog" className="option__legend">
-                <picture className="option__image">
-                  <source
-                    srcSet="../images/dog-option@2x.png"
-                    media="(min-width: 750px)"
-                  />
-                  <img
-                    className="option__image"
-                    src="../images/dog-option.png"
-                    alt="Dog"
-                  />
-                </picture>
-                <span>Dog</span>
-              </label>
-
-              <input type="radio" name="pet-type" id="cat" value="cat" />
-              <label htmlFor="cat" className="option__legend">
-                <picture className="option__image">
-                  <source
-                    srcSet="../images/cat-option@2x.png"
-                    media="(min-width: 750px)"
-                  />
-                  <img
-                    className="option__image"
-                    src="../images/cat-option.png"
-                    alt="Cat"
-                  />
-                </picture>
-                <span>Cat</span>
-              </label>
-
-              <input type="radio" name="pet-type" id="birdy" value="birdy" />
-              <label htmlFor="birdy" className="option__legend">
-                <picture className="option__image">
-                  <source
-                    srcSet="../images/birdy-option@2x.png"
-                    media="(min-width: 750px)"
-                  />
-                  <img
-                    className="option__image"
-                    src="../images/birdy-option.png"
-                    alt="Birdy"
-                  />
-                </picture>
-                <span> Birdy </span>
-              </label>
-
-              <input
-                type="radio"
-                name="pet-type"
-                id="hamster"
-                value="hamster"
-              />
-              <label htmlFor="hamster" className="option__legend">
-                <picture className="option__image">
-                  <source
-                    srcSet="../images/hamster-option@2x.png"
-                    media="(min-width: 750px)"
-                  />
-                  <img
-                    className="option__image"
-                    src="../images/hamster-option.png"
-                    alt="Hamster"
-                  />
-                </picture>
-                <span> Hamster </span>
-              </label>
-            </div>
+            <Select columns={4} id="pet-type">
+              <Select.Option id="dog" name="petType" label="Dog">
+                <PetType type="dog" />
+              </Select.Option>
+              <Select.Option id="cat" name="petType" label="Cat">
+                <PetType type="cat" />
+              </Select.Option>
+              <Select.Option id="birdy" name="petType" label="Birdy">
+                <PetType type="birdy" />
+              </Select.Option>
+              <Select.Option id="hamster" name="petType" label="Hamster">
+                <PetType type="hamster" />
+              </Select.Option>
+            </Select>
             <span className="input__error"></span>
           </div>
 
@@ -266,15 +223,13 @@ function App() {
             <br />
             additional pet profiles for the whole family later.
           </span>
-        </fieldset>
+        </Fieldset>
 
-        <fieldset id="fifth" hidden>
-          <legend>
-            <h2 className="step__tittle">
-              Yay, we love dogs! Give us the basics about your pup.
-            </h2>
-          </legend>
-
+        <Fieldset
+          id="fifth"
+          title="Yay, we love dogs! Give us the basics about your pup."
+          hidden
+        >
           <div className="field__block">
             <div className="input__field">
               <label htmlFor="pet-name" className="input__title">
@@ -451,7 +406,7 @@ function App() {
             </div>
             <span className="input__error"></span>
           </div>
-        </fieldset>
+        </Fieldset>
 
         <Fieldset
           id="sixth"
@@ -463,23 +418,56 @@ function App() {
               id="select-all"
               name="favorite-things"
               label="Select all"
+              handleChange={handleChange}
             />
             <Checkbox
               id="kisses"
               name="favorite-things"
               label="Giving kisses"
+              handleChange={handleChange}
             />
-            <Checkbox id="walk" name="favorite-things" label="Walks" />
-            <Checkbox id="barking" name="favorite-things" label="Barking" />
-            <Checkbox id="snuggling" name="favorite-things" label="Snuggling" />
-            <Checkbox id="treats" name="favorite-things" label="Treats" />
+            <Checkbox
+              id="walk"
+              name="favorite-things"
+              label="Walks"
+              handleChange={handleChange}
+            />
+            <Checkbox
+              id="barking"
+              name="favorite-things"
+              label="Barking"
+              handleChange={handleChange}
+            />
+            <Checkbox
+              id="snuggling"
+              name="favorite-things"
+              label="Snuggling"
+              handleChange={handleChange}
+            />
+            <Checkbox
+              id="treats"
+              name="favorite-things"
+              label="Treats"
+              handleChange={handleChange}
+            />
             <Checkbox
               id="playing-fetch"
               name="favorite-things"
               label="Playing fetch"
+              handleChange={handleChange}
             />
-            <Checkbox id="naps" name="favorite-things" label="Naps" />
-            <Checkbox id="toys" name="favorite-things" label="Toys" />
+            <Checkbox
+              id="naps"
+              name="favorite-things"
+              label="Naps"
+              handleChange={handleChange}
+            />
+            <Checkbox
+              id="toys"
+              name="favorite-things"
+              label="Toys"
+              handleChange={handleChange}
+            />
           </div>
 
           <div className="text__field">
