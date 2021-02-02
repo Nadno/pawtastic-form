@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import Button from './components/Button';
 import InputText from './components/InputText';
 
@@ -17,7 +17,7 @@ import useForm from './utils/useForm';
 import { MyFormData } from './interfaces/form';
 
 function App() {
-  const { values, errors, handleChange } = useForm<MyFormData>({
+  const { values, errors, handleSubmit, handleChange } = useForm<MyFormData>({
     initialValues: {
       email: '',
       password: '',
@@ -81,7 +81,7 @@ function App() {
         </div>
       </LeftSide>
 
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Fieldset
           id="first"
           title="First, let's make sure we serve your area."
@@ -91,7 +91,7 @@ function App() {
             id="zip-code"
             name="zip-code"
             label="Zip code"
-            handleChange={handleChange}
+            handleChange={() => {}}
             placeholder="Enter your answer"
           />
         </Fieldset>
@@ -106,6 +106,7 @@ function App() {
             name="email"
             label="E-mail"
             value={values.email}
+            error={errors?.email}
             handleChange={handleChange}
             placeholder="Enter your e-mail"
           />
@@ -117,6 +118,7 @@ function App() {
               name="password"
               label="Password"
               value={values.password}
+              error={errors?.password}
               handleChange={handleChange}
               placeholder="••••••••"
             />
@@ -126,6 +128,7 @@ function App() {
               name="confirm"
               label="Confirm password"
               value={values.confirm}
+              error={errors?.confirm}
               handleChange={handleChange}
               placeholder="••••••••"
             />
@@ -135,6 +138,7 @@ function App() {
             id="policy"
             name="policy"
             value={values.policy}
+            error={errors?.policy}
             handleChange={handleChange}
             label="I have read the Privacy and agree to the Terms of Service."
           />
