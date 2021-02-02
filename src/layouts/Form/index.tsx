@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import './index.scss';
 
 interface Props {
+  onSubmit(e: FormEvent): void;
   children: any;
 }
 
-const Form = ({ children }: Props) => {
+const Form = ({ onSubmit, children }: Props) => {
   return (
-    <main className="form">
+    <form onSubmit={onSubmit} className="form">
       {children}
-    </main>
+    </form>
   );
 };
 
