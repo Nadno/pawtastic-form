@@ -5,11 +5,11 @@ interface Props {
   id: string;
   name: string;
   label: string;
-  handleInput(e: ChangeEvent): void;
+  handleChange(e: ChangeEvent): void;
   [propName: string]: any;
 }
 
-const InputText = ({ id, name, label, handleInput, ...props }: Props) => {
+const InputText = ({ id, name, label, handleChange, ...props }: Props) => {
   return (
     <div className="input-text">
       <label htmlFor={id} className="input-title">
@@ -19,7 +19,7 @@ const InputText = ({ id, name, label, handleInput, ...props }: Props) => {
         type="text"
         id={id}
         name={name}        
-        onChange={handleInput}
+        onChange={handleChange}
         {...props}
       />
       <span className="input__error"></span>
