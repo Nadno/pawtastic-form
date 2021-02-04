@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import './index.scss';
 
 interface Props {
-  id: string;
   title: string | ReactNode;
   children?: any;
   [propName: string]: any;
