@@ -1,4 +1,4 @@
-import { Tests, validationsTypes } from '../validate';
+import { ConfirmPassword, Tests, Validation, ValidationFunction, ValidationsTypes } from '../validate';
 import customMessage from './customMessage';
 import { isEqual, notNull, validPattern } from './validations';
 
@@ -7,9 +7,9 @@ const ERROR = {
   OFF: 'off',
   EMPTY: 'empty',
   NOT_EQUAL: 'notEqual',
+  NOT_SELECTED: 'notSelected',
 };
-
-const NO_ERROR: object = Object.create(null);
+const NO_ERROR = null;
 
 const CUSTOM_SELECTS = [
   'petType',
@@ -35,7 +35,7 @@ const patternFor: { [prop: string]: RegExp } = {
   phone: /\d{2}\s\9\d{4}\-\d{4}/,
 };
 
-function validTests(name: string, tests: Tests) {
+function validTests(name: string, tests: Tests): Validation {
   for (let [valid, error] of tests) {
     if (!valid()) return { [name]: customMessage(name, error) };
   }
@@ -51,28 +51,28 @@ function validTextInput(name: string, value: string) {
   return validTests(name, tests);
 }
 
-function validCustomSelect(name: string, value: string) {
-  if (!value) return { [name]: customMessage(name, ERROR.EMPTY) };
+function validCustomSelect(name: string, value: string): Validation {
+  if (!value) return { [name]: customMessage(name, ERROR.NOT_SELECTED) };
 
   const TYPES: { [prop: string]: string[] } = {
     petType: ['dog', 'cat', 'birdy', 'hamster'],
     petGender: ['male', 'female'],
-    petSpayedOrNeutered: ['true', 'false'],
+    petSpayedOrNeutered: ['SONYes', 'SONNo'],
     petWeight: ['5/10', '10/15', '15/20', '20/25'],
   };
 
-  if (TYPES[name].includes(value)) return;
+  if (TYPES[name].includes(value)) return NO_ERROR;
   return { [name]: customMessage(name, ERROR.INVALID) };
 }
 
 const inputValidations = {
-  policy(name: string, value: boolean) {
+  policy(name: string, value: boolean): Validation {
     if (value)
       return NO_ERROR;
     return { [name]: customMessage(name, ERROR.OFF) };
   },
 
-  password(name: string, value: string) {
+  password(name: string, value: string): Validation {
     const tests: Tests = [
       [notNull(value), ERROR.EMPTY],
       [validPattern(patternFor.password, value), ERROR.INVALID],
@@ -83,8 +83,8 @@ const inputValidations = {
 
   confirm(
     name: string,
-    { password, confirm }: { password: string; confirm: string }
-  ) {
+    { password, confirm }: ConfirmPassword
+  ): Validation {
     const tests: Tests = [
       [notNull(password), ERROR.EMPTY],
       [isEqual(password, confirm), ERROR.NOT_EQUAL],
@@ -93,19 +93,19 @@ const inputValidations = {
     return validTests(name, tests);
   },
 
-  petBirthDay(name: string, value: any) {
+  petBirthDay(name: string, value: string): Validation {
     return NO_ERROR;
   },
 
-  petPhoto(name: string, value: any) {
+  petPhoto(name: string, value: string): Validation {
     return NO_ERROR;
   },
 
-  altPhone(name: string, value: any) {
+  altPhone(name: string, value: string): Validation {
     return NO_ERROR;
   },
 
-  default(name: string, value: any) {
+  default(name: string, value: string): Validation {
     if (NOT_NULLS.includes(name)) {
       return validTextInput(name, value);
     } else if (CUSTOM_SELECTS.includes(name)) {
@@ -117,9 +117,9 @@ const inputValidations = {
 };
 
 export default function validate(names: string | string[], values: any) {
-  function validInput(name: string) {
-    const key = name as validationsTypes;
-    const validateValue = inputValidations[key]
+  function validInput(name: string): any {
+    const key = name as ValidationsTypes;
+    const validateValue: ValidationFunction = inputValidations[key]
       ? inputValidations[key]
       : inputValidations.default;
 
