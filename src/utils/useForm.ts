@@ -21,18 +21,40 @@ export default function useForm<iniValues>({
     e.preventDefault();
   }
 
+  function handleFile({ name, files }: HTMLInputElement) {
+    const [file] = files as FileList;
+    const error = validate(name, { [name]: file });
+    if (error) {
+      setErros(error);
+      return error;
+    }
+
+    if (file) {
+      setValues(prev => ({
+        ...prev,
+        [name]: {
+          file: new Blob([file], { type: 'img', }),
+          name: file.name,
+        },
+      }))
+    }
+  }
+
   function handleChange(e: ChangeEvent) {
     const target = e.target as HTMLInputElement;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name, type } = target;
 
+    if (type === 'file') return handleFile(target);
     
-    setChangedValue(target.name);
+    const value = type === 'checkbox' ? target.checked : target.value;
+
+    setChangedValue(name);
     setValues((prev) => {
       const newValue = {
         ...prev,
-        [target.name]: value,
+        [name]: value,
       };
-      console.log(`***${target.name}: `, value);
+
       return newValue;
     });
   }
