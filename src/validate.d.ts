@@ -3,7 +3,7 @@ export type ValidationsTypes =
   | 'policy'
   | 'password'
   | 'confirm'
-  | 'petBirthDay'
+  | 'petBirthday'
   | 'petPhoto'
   | 'altPhone'
   | 'default';

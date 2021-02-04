@@ -13,7 +13,7 @@ export interface MyFormData {
   petName?: string;
   petBreed?: string;
   petGender?: string;
-  petBirthDay?: string;
+  petBirthday?: string;
   petSpayedOrNeutered?: string;
   petWeight?: string;
   petPhoto?: string;
