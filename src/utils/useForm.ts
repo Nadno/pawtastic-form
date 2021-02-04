@@ -32,8 +32,7 @@ export default function useForm<iniValues>({
         ...prev,
         [target.name]: value,
       };
-
-      // console.log('***useForm: ', newValue);
+      console.log(`***${target.name}: `, value);
       return newValue;
     });
   }
@@ -42,10 +41,17 @@ export default function useForm<iniValues>({
     setErros(validate(changedValue, values));
   }
 
+  function checkInputs(names: string[]) {
+    const error = validate(names, values);
+    setErros(error);
+    return error;
+  }
+
   return {
     errors,
     values,
     handleSubmit,
     handleChange,
+    checkInputs,
   };
 }
