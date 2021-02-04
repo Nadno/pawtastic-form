@@ -20,7 +20,7 @@ const DefaultInput = ({
 }: Props) => {
   return (
     <div className={`default-input ${error && 'error'}`}>
-      <label htmlFor={id} className="input-text__title">
+      <label htmlFor={id} className="default-input__title">
         {label}
       </label>
       <input
