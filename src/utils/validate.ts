@@ -1,6 +1,6 @@
 import { ConfirmPassword, Tests, Validation, ValidationFunction, ValidationsTypes } from '../validate';
 import customMessage from './customMessage';
-import { isEqual, notNull, validPattern } from './validations';
+import { biggerOrEqualThan, isEqual, lessOrEqualThan, notNull, validPattern } from './validations';
 
 const ERROR = {
   INVALID: 'invalid',
@@ -93,8 +93,14 @@ const inputValidations = {
     return validTests(name, tests);
   },
 
-  petBirthDay(name: string, value: string): Validation {
-    return NO_ERROR;
+  petBirthday(name: string, value: string): Validation {
+    const [year] = value.split("-");
+    const minYear = biggerOrEqualThan(Number(year), 1950);
+    const maxYear = lessOrEqualThan(Number(year), 2020);
+    const betweenMinAndMax = minYear() && maxYear();
+
+    if (betweenMinAndMax) return NO_ERROR;
+    return { [name]: customMessage(name, ERROR.INVALID) };
   },
 
   petPhoto(name: string, value: string): Validation {
@@ -102,6 +108,15 @@ const inputValidations = {
   },
 
   altPhone(name: string, value: string): Validation {
+    const HAS_VALUE = value.length > 0;
+    if (HAS_VALUE) {
+      if (validPattern(patternFor["phone"], value)()) {
+        return NO_ERROR;
+      } else {
+        return { [name]: customMessage(name, ERROR.INVALID) };
+      }
+    }
+
     return NO_ERROR;
   },
 
