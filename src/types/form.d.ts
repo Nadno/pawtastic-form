@@ -16,7 +16,10 @@ export interface MyFormData {
   petBirthday?: string;
   petSpayedOrNeutered?: string;
   petWeight?: string;
-  petPhoto?: string;
+  petPhoto?: {
+    file: File,
+    name: string,
+  };
 
   kisses?: boolean;
   walk?: boolean;
