@@ -1,4 +1,4 @@
-import { ConfirmPassword, Tests, Validation, ValidationFunction, ValidationsTypes } from '../validate';
+import { ConfirmPassword, Tests, Validation, ValidationFunction, ValidationsTypes } from '../types/validate';
 import customMessage from './customMessage';
 import { biggerOrEqualThan, isEqual, lessOrEqualThan, notNull, validPattern } from './validations';
 
@@ -105,8 +105,14 @@ const inputValidations = {
     return { [name]: customMessage(name, ERROR.INVALID) };
   },
 
-  petPhoto(name: string, value: string): Validation {
-    return NO_ERROR;
+  petPhoto(name: string, value: File): Validation {
+    if (!value) return NO_ERROR;
+    const [file, type] = value.type.split("/");
+    const IS_IMAGE = file === "image";
+    const IS_ACCEPTABLE = ["jpg", "png", "jpeg"].includes(type);
+
+    if (IS_IMAGE && IS_ACCEPTABLE) return NO_ERROR;
+    return { [name]: customMessage(name, ERROR.INVALID) };
   },
 
   altPhone(name: string, value: string): Validation {
