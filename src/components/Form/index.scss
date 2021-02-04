@@ -76,7 +76,7 @@
     overflow-y: hidden;
 
     @media (min-width: 800px) {
-      .sixth .check__block {
+      & > :nth-child(5) .check__block {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
       }

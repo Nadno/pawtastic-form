@@ -4,17 +4,18 @@ import useForm from '../../utils/useForm';
 import { useStep } from '../../contexts/useStep';
 import validate from '../../utils/validate';
 
-import { MyFormData } from '../../interfaces/form';
+import { MyFormData } from '../../types/form';
 
 import Fieldset from '../../layouts/Fieldset';
 import Button from '../Button';
-import InputText from '../InputText';
+import DefaultInput from '../DefaultInput';
 import Checkbox from '../Checkbox';
 import Select from '../Select';
 import PetType from '../PetType';
 
 import './index.scss';
 import getInputNames from '../../utils/setInputNames';
+import PhotoInput from '../PhotoInput';
 
 const Form = () => {
   const { step, next, back } = useStep(0, 6);
@@ -37,6 +38,9 @@ const Form = () => {
       altPhone: '',
       cpf: '',
       petType: '',
+      petName: '',
+      petBreed: '',
+      petBirthday: '',
     },
     validate,
   });
@@ -63,7 +67,7 @@ const Form = () => {
         hidden={step !== 0}
         title="First, let's make sure we serve your area."
       >
-        <InputText
+        <DefaultInput
           id="zip-code"
           name="zipCode"
           label="Zip code"
@@ -77,7 +81,7 @@ const Form = () => {
         hidden={step !== 1}
         title="Good news! We care for pets in your area. Let's"
       >
-        <InputText
+        <DefaultInput
           type="email"
           id="email"
           name="email"
@@ -89,7 +93,7 @@ const Form = () => {
         />
 
         <div className="step__field-block">
-          <InputText
+          <DefaultInput
             type="password"
             id="password"
             name="password"
@@ -99,7 +103,7 @@ const Form = () => {
             handleChange={handleChange}
             placeholder="••••••••"
           />
-          <InputText
+          <DefaultInput
             type="password"
             id="confirm"
             name="confirm"
@@ -126,7 +130,7 @@ const Form = () => {
         title="Hello! Please tell us a little bit about yourself."
       >
         <div className="step__field-block">
-          <InputText
+          <DefaultInput
             id="first-name"
             name="firstName"
             label="First name"
@@ -135,7 +139,7 @@ const Form = () => {
             handleChange={handleChange}
             placeholder="Your first name"
           />
-          <InputText
+          <DefaultInput
             id="last-name"
             name="lastName"
             label="Last name"
@@ -147,7 +151,7 @@ const Form = () => {
         </div>
 
         <div className="step__field-block">
-          <InputText
+          <DefaultInput
             id="phone"
             name="phone"
             label="Phone"
@@ -156,7 +160,7 @@ const Form = () => {
             handleChange={handleChange}
             placeholder="01 90000-0000"
           />
-          <InputText
+          <DefaultInput
             id="alt-phone"
             name="altPhone"
             label="Phone alt"
@@ -167,7 +171,7 @@ const Form = () => {
           />
         </div>
 
-        <InputText
+        <DefaultInput
           id="cpf"
           name="cpf"
           label="CPF"
@@ -238,73 +242,45 @@ const Form = () => {
         hidden={step !== 4}
         title="Yay, we love dogs! Give us the basics about your pup."
       >
-        <div className="field__block">
-          <div className="input__field">
-            <label htmlFor="pet-name" className="input__title">
-              Name
-            </label>
+        <div className="step__field-block">
+          <DefaultInput
+            type="text"
+            id="pet-name"
+            name="petName"
+            label="Name"
+            value={values.petName}
+            error={errors?.petName}
+            handleChange={handleChange}
+            placeholder="Pet's name"
+          />
 
-            <input
-              type="text"
-              name="pet-name"
-              id="pet-name"
-              placeholder="Pet's name"
-            />
-            <span className="input__error"></span>
-          </div>
-
-          <div className="photo__field">
-            <input
-              type="file"
-              name="pet-photo"
-              id="pet-photo"
-              accept="image/png, image/jpeg, image/jpg"
-            />
-
-            <label htmlFor="pet-photo">
-              <picture className="upload__button">
-                <source
-                  srcSet="../images/path@2x.png"
-                  media="(min-width: 750px)"
-                />
-                <img
-                  id="select-image"
-                  src="../images/path.png"
-                  alt="Select a pet"
-                />
-              </picture>
-
-              <span className="input__title"> Upload a photo </span>
-            </label>
-            <span className="input__error"></span>
-          </div>
+          <PhotoInput />
         </div>
 
-        <div className="field__block">
-          <div className="input__field">
-            <label htmlFor="pet-breed" className="input__title">
-              Breed
-            </label>
-
-            <input
-              type="text"
-              name="pet-breed"
-              id="pet-breed"
-              placeholder="Pet's breed"
-            />
-            <span className="input__error"></span>
-          </div>
-          <div className="input__field">
-            <label htmlFor="pet-birth-day" className="input__title">
-              Birthday
-            </label>
-
-            <input type="date" name="pet-birth-day" id="pet-birth-day" />
-            <span className="input__error"></span>
-          </div>
+        <div className="step__field-block">
+          <DefaultInput
+            type="text"
+            id="pet-breed"
+            name="petBreed"
+            label="Breed"
+            value={values.petBreed}
+            error={errors?.petBreed}
+            handleChange={handleChange}
+            placeholder="Pet's breed"
+          />
+          <DefaultInput
+            type="date"
+            id="pet-birthday"
+            name="petBirthday"
+            label="Birthday"
+            value={values.petBirthday}
+            error={errors?.petBirthday}
+            handleChange={handleChange}
+            placeholder="Pet's birthday"
+          />
         </div>
 
-        <div className="select__container">
+        <div className="step__field-block">
           <Select
             id="pet-gender"
             title="Gender"
@@ -347,52 +323,38 @@ const Form = () => {
           </Select>
         </div>
 
-        <div className="select__field">
-          <span className="input__title">Weight</span>
+        <Select
+          id="pet-weight"
+          title="Weight"
+          error={errors?.petWeight}
+          columns={4}
+        >
+          <Select.Option
+            id="5/10"
+            label="5/10"
+            name="petWeight"
+            handleChange={handleChange}
+          />
 
-          <div className="select four-columns" id="pet-weight">
-            <input
-              type="radio"
-              name="pet-weight"
-              id="first-weight"
-              value="5/10"
-            />
-            <label htmlFor="first-weight" className="option__legend">
-              5/10 Kg
-            </label>
-
-            <input
-              type="radio"
-              name="pet-weight"
-              id="second-weight"
-              value="10/15"
-            />
-            <label htmlFor="second-weight" className="option__legend">
-              10/15 Kg
-            </label>
-
-            <input
-              type="radio"
-              name="pet-weight"
-              id="third-weight"
-              value="15/20"
-            />
-            <label htmlFor="third-weight" className="option__legend">
-              15/20 Kg
-            </label>
-
-            <input
-              type="radio"
-              name="pet-weight"
-              id="fourth-weight"
-              value="20/25"
-            />
-            <label htmlFor="fourth-weight" className="option__legend">
-              20/25 Kg
-            </label>
-          </div>
-          <span className="input__error"></span>
-        </div>
+          <Select.Option
+            id="10/15"
+            label="10/15"
+            name="petWeight"
+            handleChange={handleChange}
+          />
+          <Select.Option
+            id="15/20"
+            label="15/20"
+            name="petWeight"
+            handleChange={handleChange}
+          />
+          <Select.Option
+            id="20/25"
+            label="20/25"
+            name="petWeight"
+            handleChange={handleChange}
+          />
+        </Select>
       </Fieldset>
 
       <Fieldset

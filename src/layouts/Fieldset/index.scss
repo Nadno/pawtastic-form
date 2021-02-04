@@ -12,30 +12,32 @@
     border-bottom: 1px var(--color-dark-primary) solid;
   }
 
-  & > :nth-child(1n):not(legend) {
+  .default-input,
+  .select-field,
+  .photo-field {
     margin-bottom: 2rem;
   }
 
-  @media (min-width: 750px) {
+  @media screen and (min-width: 500px) and (max-width: 750px),
+    screen and (min-width: 820px) {
+    &__field-block {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 1.4rem;
+    }
+
+    .photo-field {
+      align-self: flex-end;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
 
     &__title {
       font-size: 3.4rem;
-    }
-
-    @media (min-width: 800px) {
-      &__field-block {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 1.4rem;
-      }
-
-      .photo__field {
-        align-self: flex-end;
-        margin-top: 0;
-      }
     }
   }
 }
