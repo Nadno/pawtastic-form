@@ -9,7 +9,7 @@ const ERROR = {
   NOT_EQUAL: 'notEqual',
   NOT_SELECTED: 'notSelected',
 };
-const NO_ERROR = null;
+const NO_ERROR = '';
 
 const CUSTOM_SELECTS = [
   'petType',
@@ -95,6 +95,8 @@ const inputValidations = {
 
   petBirthday(name: string, value: string): Validation {
     const [year] = value.split("-");
+    if (!year)  return { [name]: customMessage(name, ERROR.INVALID) };
+    
     const minYear = biggerOrEqualThan(Number(year), 1950);
     const maxYear = lessOrEqualThan(Number(year), 2020);
     const betweenMinAndMax = minYear() && maxYear();
