@@ -54,17 +54,26 @@ const Form = () => {
 
   const nextStep = () => {
     const error = checkInputs(inputNames);
-    console.log(error);
     if (error) return;
 
     next();
+  };
+
+  const not = {
+    fistStep: step !== 0,
+    secondStep: step !== 1,
+    thirdStep: step !== 2,
+    fourthStep: step !== 3,
+    fifthStep: step !== 4,
+    sixthStep: step !== 5,
+    seventhStep: step !== 6,
   };
 
   return (
     <form id="pawtasticForm" onSubmit={handleSubmit} className="form">
       <Fieldset
         id="first"
-        hidden={step !== 0}
+        hidden={not.fistStep}
         title="First, let's make sure we serve your area."
       >
         <DefaultInput
@@ -78,7 +87,7 @@ const Form = () => {
       </Fieldset>
 
       <Fieldset
-        hidden={step !== 1}
+        hidden={not.secondStep}
         title="Good news! We care for pets in your area. Let's"
       >
         <DefaultInput
@@ -126,7 +135,7 @@ const Form = () => {
       </Fieldset>
 
       <Fieldset
-        hidden={step !== 2}
+        hidden={not.thirdStep}
         title="Hello! Please tell us a little bit about yourself."
       >
         <div className="step__field-block">
@@ -183,7 +192,7 @@ const Form = () => {
       </Fieldset>
 
       <Fieldset
-        hidden={step !== 3}
+        hidden={not.fourthStep}
         title={
           <>
             Nice to meet you, Name. <br />
@@ -239,7 +248,7 @@ const Form = () => {
       </Fieldset>
 
       <Fieldset
-        hidden={step !== 4}
+        hidden={not.fifthStep}
         title="Yay, we love dogs! Give us the basics about your pup."
       >
         <div className="step__field-block">
@@ -254,7 +263,13 @@ const Form = () => {
             placeholder="Pet's name"
           />
 
-          <PhotoInput />
+          <PhotoInput
+            id="pet-photo"
+            name="petPhoto"
+            label={values?.petPhoto?.name || "Upload a image"}
+            error={errors?.petPhoto}
+            handleChange={handleChange}
+          />
         </div>
 
         <div className="step__field-block">
@@ -358,7 +373,7 @@ const Form = () => {
       </Fieldset>
 
       <Fieldset
-        hidden={step !== 5}
+        hidden={not.sixthStep}
         title="Thanks! Now give us all the details about Ginger."
       >
         <div id="favorite-things" title="Favorite things">
@@ -432,7 +447,7 @@ const Form = () => {
       </Fieldset>
 
       <Fieldset
-        hidden={step !== 6}
+        hidden={not.seventhStep}
         title="Okay, Ginger's all set! We can't wait to meet het."
       ></Fieldset>
 

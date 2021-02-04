@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 const ContextStep = createContext<any>(null);
 
 export const StepProvider = ({ children }: any) => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(0);
 
   return (
     <ContextStep.Provider value={{

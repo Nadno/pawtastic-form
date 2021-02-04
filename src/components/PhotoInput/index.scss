@@ -9,11 +9,14 @@
   }
 
   &__title {
+    display: block;
+    max-width: 150px;
+    overflow: hidden;
     font-size: 1.6rem;
     color: var(--color-light-secondary);
   }
 
-  .upload__button {
+  &__upload {
     height: 5.4rem;
     width: 5.4rem;
 
@@ -36,7 +39,7 @@
     }
   }
 
-  &.error .upload__button {
+  &.error .photo-field__upload {
     border-color: var(--color-tertiary);
   }
 
