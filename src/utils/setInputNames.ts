@@ -1,9 +1,5 @@
-export default function getInputNames(step: number): string[] {
+export default function getInputNames(): string[] {
   const form = document.getElementById('pawtasticForm') as HTMLElement;
-  const currentFieldset = Array.from(
-    form.querySelectorAll<HTMLFieldSetElement>('fieldset')
-  )[step];
-
   let names: string[] = [];
 
   const getNames = ({ name }: HTMLInputElement) => {
@@ -12,7 +8,7 @@ export default function getInputNames(step: number): string[] {
     }
   };
 
-  currentFieldset.querySelectorAll<HTMLInputElement>('input').forEach(getNames);
+  form.querySelectorAll<HTMLInputElement>('input').forEach(getNames);
 
   return names;
 }
