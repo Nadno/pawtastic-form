@@ -1,8 +1,21 @@
+@keyframes show-fieldset {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .step {
+  position: relative;
   height: 100%;
   border: none;
   margin: auto 0;
   padding: 2.44rem;
+
+  opacity: 0;
+  transform: translateX(-50%);
+
+  animation: show-fieldset 0.4s ease-in forwards;
 
   &__title {
     font-size: 2.4rem;
