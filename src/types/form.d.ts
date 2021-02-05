@@ -16,10 +16,7 @@ export interface MyFormData {
   petBirthday?: string;
   petSpayedOrNeutered?: string;
   petWeight?: string;
-  petPhoto?: {
-    file: File,
-    name: string,
-  };
+  petPhoto?: File | object;
 
   kisses?: boolean;
   walk?: boolean;
@@ -32,3 +29,5 @@ export interface MyFormData {
 
   petDetail?: string;
 }
+
+type CustomChangeEvent = ChangeEvent<HTMLInputElement> | { target: HTMLInputElement };

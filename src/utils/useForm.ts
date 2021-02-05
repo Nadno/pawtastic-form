@@ -1,4 +1,5 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { CustomChangeEvent } from '../types/form';
 
 interface UseForm<ini> {
   initialValues: ini;
@@ -23,6 +24,7 @@ export default function useForm<iniValues>({
 
   function handleFile({ name, files }: HTMLInputElement) {
     const [file] = files as FileList;
+    
     const error = validate(name, { [name]: file });
     if (error) {
       setErros(error);
@@ -32,16 +34,12 @@ export default function useForm<iniValues>({
     if (file) {
       setValues(prev => ({
         ...prev,
-        [name]: {
-          file: new Blob([file], { type: 'img', }),
-          name: file.name,
-        },
+        [name]: file,
       }))
     }
   }
 
-  function handleChange(e: ChangeEvent) {
-    const target = e.target as HTMLInputElement;
+  function handleChange({ target }: CustomChangeEvent) {
     const { name, type } = target;
 
     if (type === 'file') return handleFile(target);
@@ -60,13 +58,24 @@ export default function useForm<iniValues>({
   }
 
   function validateValues(changedValue: string, values: any) {
-    setErros(validate(changedValue, values));
+    const error = validate(changedValue, values);
+    if (error) {
+      setErros(error);
+      return;
+    }
+
+    setErros({});
   }
 
   function checkInputs(names: string[]) {
     const error = validate(names, values);
-    setErros(error);
-    return error;
+
+    if (error) {
+      setErros(error);
+      return error;
+    }
+
+    setErros({});
   }
 
   return {
