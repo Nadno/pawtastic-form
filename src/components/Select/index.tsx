@@ -10,17 +10,19 @@ interface Props {
 }
 
 const Select = ({ id, title, error, children, columns }: Props) => {
-  const columnsOp = new Map();
-  columnsOp.set(2, 'two');
-  columnsOp.set(4, 'four');
+  const columnsOption = {
+    '2': 'two',
+    '4': 'four',
+  };
 
   return (
-    <div className="select-field" >
+    <div className="select-field">
       <span className="select-field__title">{title}</span>
 
-      <div className={
-        `select ${error && 'error'} ${columnsOp.get(columns)}-columns`
-        }
+      <div
+        className={`select ${error && 'error'} ${
+          columnsOption[columns]
+        }-columns`}
         id={id}
       >
         {children}
@@ -38,16 +40,20 @@ interface OptionProps {
   handleChange(e: FormEvent): void;
 }
 
-Select.Option = ({ id, name, label, children, handleChange }: OptionProps) => {
-  return (
-    <>
-      <input type="radio" name={name} id={id} value={id} onChange={handleChange} />
-      <label htmlFor={id} className="option__legend">
-        {children}
-        <span>{label}</span>
-      </label>
-    </>
-  );
-};
+Select.Option = ({ id, name, label, children, handleChange }: OptionProps) => (
+  <>
+    <input
+      type="radio"
+      name={name}
+      id={id}
+      value={id}
+      onChange={handleChange}
+    />
+    <label htmlFor={id} className="option__legend">
+      {children}
+      <span>{label}</span>
+    </label>
+  </>
+);
 
 export default Select;
