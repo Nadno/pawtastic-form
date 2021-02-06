@@ -3,7 +3,7 @@ export default function customMessage(name: string, error: string): string {
     default: {
       empty: 'Required',
       invalid: 'Invalid',
-      notSelected: 'Select a option',
+      notSelected: 'Select an option',
     },
     confirm: {
       notEqual: 'The passwords is not equal',
