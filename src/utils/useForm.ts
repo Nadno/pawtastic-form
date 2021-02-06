@@ -24,18 +24,18 @@ export default function useForm<iniValues>({
 
   function handleFile({ name, files }: HTMLInputElement) {
     const [file] = files as FileList;
-    
+
     const error = validate(name, { [name]: file });
-    if (error) {
+    if (Object.keys(error).length) {
       setErros(error);
       return error;
     }
 
     if (file) {
-      setValues(prev => ({
+      setValues((prev) => ({
         ...prev,
         [name]: file,
-      }))
+      }));
     }
   }
 
@@ -43,7 +43,7 @@ export default function useForm<iniValues>({
     const { name, type } = target;
 
     if (type === 'file') return handleFile(target);
-    
+
     const value = type === 'checkbox' ? target.checked : target.value;
 
     setChangedValue(name);
@@ -58,24 +58,17 @@ export default function useForm<iniValues>({
   }
 
   function validateValues(changedValue: string, values: any) {
-    const error = validate(changedValue, values);
-    if (error) {
+    setErros(validate(changedValue, values));
+  }
+
+  function checkInputs(names: string[], isOkCallback: Function) {
+    const { error, hasError } = validate(names, values);
+    if (hasError) {
       setErros(error);
       return;
     }
 
-    setErros({});
-  }
-
-  function checkInputs(names: string[]) {
-    const error = validate(names, values);
-
-    if (Object.keys(error).length) {
-      setErros(error);
-      return error;
-    }
-
-    setErros({});
+    isOkCallback();
   }
 
   return {
