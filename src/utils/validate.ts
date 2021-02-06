@@ -9,7 +9,7 @@ const ERROR = {
   NOT_EQUAL: 'notEqual',
   NOT_SELECTED: 'notSelected',
 };
-const NO_ERROR = '';
+const NO_ERROR = Object.create(null);
 
 const CUSTOM_SELECTS = [
   'petType',
@@ -159,7 +159,8 @@ export default function validate(names: string | string[], values: any) {
       const error = validInput(name);
       if (error) return error;
     }
-    return;
+
+    return NO_ERROR;
   }
 
   return validInput(names);

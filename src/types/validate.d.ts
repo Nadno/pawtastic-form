@@ -9,7 +9,7 @@ export type ValidationsTypes =
   | 'default';
 
 export type ConfirmPassword = { password: string; confirm: string; };
-export type Validation = { [x: string]: string } | '';
+export type Validation = { [x: string]: string } | {};
 export type ValidationFunction = (
   name: string,
   value: any
