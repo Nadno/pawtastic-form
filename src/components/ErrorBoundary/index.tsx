@@ -17,7 +17,7 @@ export default class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       console.error(this.state.errorMessage);
       return (
-        <div className="error">
+        <div className="boundary-error">
           <p>
             Ocorreu um error inesperado, por favor reinicie a página ou tente
             mais tarde.
