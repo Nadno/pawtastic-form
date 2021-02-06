@@ -17,14 +17,22 @@ interface Props {
 
 const LeftSide = ({ children }: Props) => {
   const { step } = useStep(0, 6);
-  const backgrounds = [firstBg, secondBg, thirdBg, fourthBg, fifthBg, sixthBg, seventhBg];
+  const backgrounds = [
+    firstBg,
+    secondBg,
+    thirdBg,
+    fourthBg,
+    fifthBg,
+    sixthBg,
+    seventhBg,
+  ];
   const backgroundImage = `url(${backgrounds[step]})`;
-  
+
   return (
-    <div className="side" style={{ backgroundImage, }}>
+    <div className="side" style={{ backgroundImage }}>
       {children}
     </div>
-  )
+  );
 };
 
 export default LeftSide;
