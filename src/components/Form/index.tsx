@@ -56,7 +56,7 @@ const Form = () => {
 
   const nextStep = () => {
     const error = checkInputs(inputNames);
-    // if (error) return;
+    if (error) return;
 
     next();
     window.scrollTo({

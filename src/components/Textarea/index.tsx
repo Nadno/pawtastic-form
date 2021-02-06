@@ -11,7 +11,7 @@ const Textarea = ({ label, handleChange, ...props }: Props) => {
   return (
     <div className="text-field">
       <label htmlFor="pet-detail" className="text-field__title">
-        {label} Something that we must know?
+        {label}
       </label>
       <textarea onChange={handleChange} {...props}></textarea>
     </div>
