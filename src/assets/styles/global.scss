@@ -19,13 +19,14 @@
   --color-pale-blue: #f0f1f7;
 }
 
+html,
 body {
   width: 100vw;
   min-height: 100vh;
   background-color: var(--color-light-primary);
 }
 
-.error {
+.boundary-error {
   margin: auto 20%;
   font-size: 3rem;
   font-weight: 500;
@@ -39,9 +40,20 @@ body {
   display: flex;
 }
 
-@media (min-width: 750px) {
-  .App {
+.App {
+  width: 100%;
+  @media screen and (min-width: 750px) {
     display: grid;
-    grid-template-columns: minmax(250px, 450px) 1fr;
+    grid-template-columns: minmax(250px, 400px) auto;
+
+    @media screen and (min-height: 600px) {
+      grid-template-rows: minmax(600px, 100vh);
+    }
+
+    @media screen and (min-width: 1000px) {
+      grid-template-columns: minmax(250px, 550px) auto;
+    }
   }
 }
+
+@import "./animations";
