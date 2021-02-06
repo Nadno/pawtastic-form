@@ -9,8 +9,8 @@ export type ValidationsTypes =
   | 'default';
 
 export type ConfirmPassword = { password: string; confirm: string; };
-export type Validation = { [x: string]: string } | {};
-export type ValidationFunction = (
-  name: string,
-  value: any
-) => Validation;
+export interface ValidateArgs<T> {
+  name: string;
+  value: T;
+}
+export type Validate = <T>({}: ValidateArgs<T>) => string;
