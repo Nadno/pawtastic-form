@@ -70,7 +70,7 @@ export default function useForm<iniValues>({
   function checkInputs(names: string[]) {
     const error = validate(names, values);
 
-    if (error) {
+    if (Object.keys(error).length) {
       setErros(error);
       return error;
     }
