@@ -1,18 +1,11 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import './index.scss';
 
 import camIcon from '../../assets/images/path.png';
 import camIconX2 from '../../assets/images/path@2x.png';
+import CustomInputProps from '../../types/inputs';
 
-interface Props {
-  id: string;
-  name: string;
-  label: string;
-  error: string;
-  handleChange(e: ChangeEvent): void;
-}
-
-const PhotoInput = ({ id, name, label, error, handleChange }: Props) => {
+const PhotoInput = ({ id, name, label, error, handleChange }: CustomInputProps) => {
   return (
     <div className={`photo-field${error ? ' error' : ''}`}>
       <input

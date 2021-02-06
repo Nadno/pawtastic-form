@@ -1,13 +1,10 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
+import CustomInputProps from '../../types/inputs';
 import './index.scss';
 
-interface Props {
-  id: string;
-  name: string;
-  label: string;
-  error?: string;
-  handleChange(e: ChangeEvent): void;
-  [propName: string]: any;
+interface Props extends CustomInputProps {
+  type?: string;
+  value: string;
 }
 
 const DefaultInput = ({

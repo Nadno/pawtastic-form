@@ -1,13 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
+import CustomInputProps from '../../types/inputs';
 import './index.scss';
 
-interface Props {
-  id: string;
-  name: string;
-  label: string;
-  error?: string;
+interface Props extends CustomInputProps {
   value?: boolean;
-  handleChange(e: ChangeEvent): void;
 }
 
 const Checkbox = ({ id, name, label, error, value, handleChange }: Props) => {

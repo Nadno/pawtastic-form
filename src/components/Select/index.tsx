@@ -1,4 +1,5 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
+import CustomInputProps from '../../types/inputs';
 import './index.scss';
 
 interface Props {
@@ -32,12 +33,8 @@ const Select = ({ id, title, error, children, columns }: Props) => {
   );
 };
 
-interface OptionProps {
-  id?: string;
-  name: string;
-  label: string;
+interface OptionProps extends CustomInputProps {
   children?: any;
-  handleChange(e: FormEvent): void;
 }
 
 Select.Option = ({ id, name, label, children, handleChange }: OptionProps) => (
