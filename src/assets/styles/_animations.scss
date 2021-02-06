@@ -6,7 +6,7 @@
 
 .step {
   opacity: 0;
-  animation: show-fieldset 0.4s ease-in forwards;
+  animation: show-fieldset 0.4s ease-in forwards normal;
 }
 
 .default-input,
@@ -14,7 +14,7 @@
 .photo-field,
 .check-field {
   opacity: 0;
-  animation: show-input 0.4s ease-in 0.4s forwards;
+  animation: show-input 0.4s ease-in 0.4s forwards normal;
 }
 
 @keyframes show-input {

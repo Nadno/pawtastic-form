@@ -1,21 +1,24 @@
 .steps-container {
   height: 100%;
   width: 100%;
-  
+
   display: grid;
   place-items: center;
   justify-content: center;
   grid-template-columns: minmax(auto, 750px);
   grid-template-rows: auto;
-  
-  overflow-y: scroll;
   padding-top: 4rem;
+  
+  @media screen and (min-width: 750px) {
+    filter: blur(0);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 }
 
 .step {
   border: none;
   padding: 4rem 3rem;
-  
 
   &__title {
     font-size: 2.4rem;
