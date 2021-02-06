@@ -16,9 +16,9 @@ import PetType from '../PetType';
 import PhotoInput from '../PhotoInput';
 
 import './index.scss';
+import Textarea from '../Textarea';
 
 const Form = () => {
-  const { step, next, back } = useStep(0, 6);
   const {
     values,
     errors,
@@ -46,6 +46,7 @@ const Form = () => {
     validate,
   });
 
+  const { step, next, back } = useStep(0, 6);
   const [inputNames, setInputNames] = useState<string[]>([]);
 
   useEffect(() => {
@@ -58,6 +59,10 @@ const Form = () => {
     // if (error) return;
 
     next();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   const handleSelectAllFavoriteThings = (e: ChangeEvent) => {
@@ -87,7 +92,7 @@ const Form = () => {
     nameOfThings.forEach(checkAndSetState);
   };
 
-  const is = {
+  const is = Object.assign(Object.create(null), {
     firstStep: step === 0,
     secondStep: step === 1,
     thirdStep: step === 2,
@@ -95,7 +100,7 @@ const Form = () => {
     fifthStep: step === 4,
     sixthStep: step === 5,
     seventhStep: step === 6,
-  };
+  });
 
   return (
     <form id="pawtasticForm" onSubmit={handleSubmit} className="form">
@@ -223,7 +228,7 @@ const Form = () => {
           <Fieldset
             title={
               <>
-                Nice to meet you, Name. <br />
+                Nice to meet you, {values.firstName}. <br />
                 Tell us all about your furry, feathery, or scaley friend.
               </>
             }
@@ -277,7 +282,7 @@ const Form = () => {
         )}
 
         {is.fifthStep && (
-          <Fieldset title="Yay, we love dogs! Give us the basics about your pup.">
+          <Fieldset title={`Yay, we love ${values.petType}! Give us the basics about your pup.`}>
             <div className="step__field-block">
               <DefaultInput
                 type="text"
@@ -402,7 +407,7 @@ const Form = () => {
 
         {is.sixthStep && (
           <Fieldset title="Thanks! Now give us all the details about Ginger.">
-            <div id="favorite-things" title="Favorite things">
+            <div className="favorite-things" title="Favorite things">
               <Checkbox
                 id="select-all"
                 name="selectAll"
@@ -459,17 +464,14 @@ const Form = () => {
               />
             </div>
 
-            <div className="text__field">
-              <label htmlFor="pet-detail" className="input__title">
-                Something that we must know?
-              </label>
-              <textarea
-                name="pet-detail"
-                id="pet-detail"
-                maxLength={200}
-                placeholder="Type here"
-              ></textarea>
-            </div>
+            <Textarea
+              id="pet-detail"
+              name="petDetail"
+              maxLength={200}
+              placeholder="Type here"
+              label="Something that we must know?"
+              handleChange={handleChange}
+            />
           </Fieldset>
         )}
         {is.seventhStep && (
@@ -479,7 +481,7 @@ const Form = () => {
 
       <footer className="form__footer">
         <div className="step__buttons">
-          <Button onClick={back} id="back-btn" disabled>
+          <Button onClick={back} id="back-btn" disabled={step <= 1}>
             Back
           </Button>
           <Button onClick={nextStep} type="submit">
