@@ -105,7 +105,7 @@ const inputValidations = {
     return { [name]: customMessage(name, ERROR.INVALID) };
   },
 
-  petPhoto(name: string, { file }: { file: File; }): Validation {
+  petPhoto(name: string, file: File): Validation {
     if (!file) return NO_ERROR;
     const [img, type] = file.type.split("/");
     const IS_IMAGE = img === "image";
