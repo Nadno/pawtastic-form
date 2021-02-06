@@ -55,13 +55,12 @@ const Form = () => {
   }, [step]);
 
   const nextStep = () => {
-    const error = checkInputs(inputNames);
-    if (error) return;
-
-    next();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
+   checkInputs(inputNames, () => {
+      next();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
   };
 
@@ -282,7 +281,9 @@ const Form = () => {
         )}
 
         {is.fifthStep && (
-          <Fieldset title={`Yay, we love ${values.petType}! Give us the basics about your pup.`}>
+          <Fieldset
+            title={`Yay, we love ${values.petType}! Give us the basics about your pup.`}
+          >
             <div className="step__field-block">
               <DefaultInput
                 type="text"
