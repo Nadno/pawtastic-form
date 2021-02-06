@@ -1,6 +1,18 @@
-import { ConfirmPassword, Tests, Validation, ValidationFunction, ValidationsTypes } from '../types/validate';
+import {
+  ConfirmPassword,
+  Tests,
+  Validate,
+  ValidateArgs,
+  ValidationsTypes,
+} from '../types/validate';
 import customMessage from './customMessage';
-import { biggerOrEqualThan, isEqual, lessOrEqualThan, notNull, validPattern } from './validations';
+import {
+  biggerOrEqualThan,
+  isEqual,
+  lessOrEqualThan,
+  notNull,
+  validPattern,
+} from './validations';
 
 const ERROR = {
   INVALID: 'invalid',
@@ -9,7 +21,7 @@ const ERROR = {
   NOT_EQUAL: 'notEqual',
   NOT_SELECTED: 'notSelected',
 };
-const NO_ERROR = Object.create(null);
+const NO_ERROR = '';
 
 const CUSTOM_SELECTS = [
   'petType',
@@ -35,9 +47,9 @@ const patternFor: { [prop: string]: RegExp } = {
   phone: /\d{2}\s\9\d{4}\-\d{4}/,
 };
 
-function validTests(name: string, tests: Tests): Validation {
+function validTests(name: string, tests: Tests) {
   for (let [valid, error] of tests) {
-    if (!valid()) return { [name]: customMessage(name, error) };
+    if (!valid()) return error;
   }
   return NO_ERROR;
 }
@@ -51,8 +63,8 @@ function validTextInput(name: string, value: string) {
   return validTests(name, tests);
 }
 
-function validCustomSelect(name: string, value: string): Validation {
-  if (!value) return { [name]: customMessage(name, ERROR.NOT_SELECTED) };
+function validCustomSelect(name: string, value: string) {
+  if (!value) return ERROR.NOT_SELECTED;
 
   const TYPES: { [prop: string]: string[] } = {
     petType: ['dog', 'cat', 'birdy', 'hamster'],
@@ -62,17 +74,16 @@ function validCustomSelect(name: string, value: string): Validation {
   };
 
   if (TYPES[name].includes(value)) return NO_ERROR;
-  return { [name]: customMessage(name, ERROR.INVALID) };
+  return ERROR.INVALID;
 }
 
 const inputValidations = {
-  policy(name: string, value: boolean): Validation {
-    if (value)
-      return NO_ERROR;
-    return { [name]: customMessage(name, ERROR.OFF) };
+  policy({ value }: ValidateArgs<boolean>) {
+    if (value) return NO_ERROR;
+    return ERROR.OFF;
   },
 
-  password(name: string, value: string): Validation {
+  password({ name, value }: ValidateArgs<string>) {
     const tests: Tests = [
       [notNull(value), ERROR.EMPTY],
       [validPattern(patternFor.password, value), ERROR.INVALID],
@@ -81,54 +92,51 @@ const inputValidations = {
     return validTests(name, tests);
   },
 
-  confirm(
-    name: string,
-    { password, confirm }: ConfirmPassword
-  ): Validation {
+  confirm({ name, value }: ValidateArgs<ConfirmPassword>) {
     const tests: Tests = [
-      [notNull(password), ERROR.EMPTY],
-      [isEqual(password, confirm), ERROR.NOT_EQUAL],
+      [notNull(value.password), ERROR.EMPTY],
+      [isEqual(value.password, value.confirm), ERROR.NOT_EQUAL],
     ];
 
     return validTests(name, tests);
   },
 
-  petBirthday(name: string, value: string): Validation {
-    const [year] = value.split("-");
-    if (!year)  return { [name]: customMessage(name, ERROR.INVALID) };
-    
+  petBirthday({ value }: ValidateArgs<string>) {
+    const [year] = value.split('-');
+    if (!year) return ERROR.INVALID;
+
     const minYear = biggerOrEqualThan(Number(year), 1950);
     const maxYear = lessOrEqualThan(Number(year), 2020);
     const betweenMinAndMax = minYear() && maxYear();
 
     if (betweenMinAndMax) return NO_ERROR;
-    return { [name]: customMessage(name, ERROR.INVALID) };
+    return ERROR.INVALID;
   },
 
-  petPhoto(name: string, file: File): Validation {
-    if (!file) return NO_ERROR;
-    const [img, type] = file.type.split("/");
-    const IS_IMAGE = img === "image";
-    const IS_ACCEPTABLE = ["jpg", "png", "jpeg"].includes(type);
+  petPhoto({ value }: ValidateArgs<File>) {
+    if (!value.name) return NO_ERROR;
+    const [img, type] = value.type.split('/');
+    const IS_IMAGE = img === 'image';
+    const IS_ACCEPTABLE = ['jpg', 'png', 'jpeg'].includes(type);
 
     if (IS_IMAGE && IS_ACCEPTABLE) return NO_ERROR;
-    return { [name]: customMessage(name, ERROR.INVALID) };
+    return ERROR.INVALID;
   },
 
-  altPhone(name: string, value: string): Validation {
+  altPhone({ value }: ValidateArgs<string>) {
     const HAS_VALUE = value.length > 0;
     if (HAS_VALUE) {
-      if (validPattern(patternFor["phone"], value)()) {
+      if (validPattern(patternFor['phone'], value)()) {
         return NO_ERROR;
       } else {
-        return { [name]: customMessage(name, ERROR.INVALID) };
+        return ERROR.INVALID;
       }
     }
 
     return NO_ERROR;
   },
 
-  default(name: string, value: string): Validation {
+  default({ name, value }: ValidateArgs<string>) {
     if (NOT_NULLS.includes(name)) {
       return validTextInput(name, value);
     } else if (CUSTOM_SELECTS.includes(name)) {
@@ -142,26 +150,38 @@ const inputValidations = {
 export default function validate(names: string | string[], values: any) {
   function validInput(name: string): any {
     const key = name as ValidationsTypes;
-    const validateValue: ValidationFunction = inputValidations[key]
-      ? inputValidations[key]
-      : inputValidations.default;
+    const validateValue = inputValidations[key]
+      ? (inputValidations[key] as Validate)
+      : (inputValidations.default as Validate);
 
     if (key === 'confirm') {
-      const { password, confirm }: any = values;
-      return validateValue(key, { password, confirm });
+      const { password, confirm } = values;
+      return validateValue<ConfirmPassword>({
+        name,
+        value: { password, confirm },
+      });
     }
 
-    return validateValue(name, values[name]);
+    return validateValue<string | File | boolean>({
+      name,
+      value: values[name],
+    });
   }
 
   if (typeof names !== 'string') {
     for (let name of names) {
       const error = validInput(name);
-      if (error) return error;
+      if (error)
+        return {
+          error: { [name]: customMessage(name, error) },
+          hasError: true,
+        };
     }
 
-    return NO_ERROR;
+    return {};
   }
 
-  return validInput(names);
+  const error = validInput(names);
+  if (error) return { [names]: customMessage(names, error) };
+  return {};
 }
