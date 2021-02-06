@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Logo from './components/Logo';
-import LeftSide from './layouts/LeftSide';
-
-import Form from './components/Form';
-import { StepProvider } from './contexts/useStep';
 import ErrorBoundary from './components/ErrorBoundary';
+import LeftSide from './layouts/LeftSide';
+import Logo from './components/Logo';
+import Form from './components/Form';
+
+import { StepProvider } from './contexts/useStep';
 
 function App() {
   return (
