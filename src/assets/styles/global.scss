@@ -25,6 +25,12 @@ body {
   background-color: var(--color-light-primary);
 }
 
+.error {
+  margin: auto 20%;
+  font-size: 3rem;
+  font-weight: 500;
+}
+
 .error-field {
   font-size: 1.6rem;
   margin-top: 0.5rem;

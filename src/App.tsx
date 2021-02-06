@@ -5,6 +5,7 @@ import LeftSide from './layouts/LeftSide';
 
 import Form from './components/Form';
 import { StepProvider } from './contexts/useStep';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
@@ -62,7 +63,9 @@ function App() {
           </div>
         </LeftSide>
 
-        <Form />
+        <ErrorBoundary>
+          <Form />
+        </ErrorBoundary>
       </div>
     </StepProvider>
   );
