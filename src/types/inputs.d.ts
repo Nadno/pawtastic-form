@@ -6,6 +6,7 @@ interface CustomInputProps {
   label: string;
   error?: string;
   placeholder?: string;
+  autoFocus?: boolean;
   handleChange(e: ChangeEvent): void;
 }
 
