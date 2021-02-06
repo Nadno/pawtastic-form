@@ -7,10 +7,10 @@ interface Props extends CustomInputProps {
   maxLength: number;
 }
 
-const Textarea = ({ label, handleChange, ...props }: Props) => {
+const Textarea = ({ id, label, handleChange, ...props }: Props) => {
   return (
     <div className="text-field">
-      <label htmlFor="pet-detail" className="text-field__title">
+      <label htmlFor={id} className="text-field__title">
         {label}
       </label>
       <textarea onChange={handleChange} {...props}></textarea>
