@@ -1,0 +1,24 @@
+@keyframes show-fieldset {
+  to {
+    opacity: 1;
+  }
+}
+
+.step {
+  opacity: 0;
+  animation: show-fieldset 0.4s ease-in forwards;
+}
+
+.default-input,
+.select-field,
+.photo-field,
+.check-field {
+  opacity: 0;
+  animation: show-input 0.4s ease-in 0.4s forwards;
+}
+
+@keyframes show-input {
+  to {
+    opacity: 1;
+  }
+}
