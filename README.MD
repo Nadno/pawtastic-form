@@ -1,6 +1,6 @@
 # Pawtastic form
 
-Esse formulário segue a mesma estrutura que esse formulário [aqui](https://github.com/Nadno/Pawtastic), dessa vez utilizando React, aproveitando componentes, _estados_, _context_, e _error boundaries_. Abaixo segue com algumas imagens do formulário, caso queira pode pular direto para a funcionalidade <a src="#funcionalidade">aqui</a>.
+Esse formulário segue a mesma estrutura que esse formulário [aqui](https://github.com/Nadno/Pawtastic), dessa vez utilizando React, aproveitando componentes, _estados_, _context_, e _error boundaries_. Abaixo segue com algumas imagens do formulário.
 
 ### Mobile
 
