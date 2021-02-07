@@ -11,7 +11,7 @@ export default function useForm<iniValues>({
   validate,
 }: UseForm<iniValues>) {
   const [errors, setErros] = useState<{ [x: string]: any }>({});
-  const [values, setValues] = useState<{ [x: string]: any }>(initialValues);
+  const [values, setValues] = useState<iniValues>(initialValues);
   const [changedValue, setChangedValue] = useState('');
 
   useEffect(() => {

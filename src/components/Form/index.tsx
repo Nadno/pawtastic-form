@@ -41,7 +41,10 @@ const Form = () => {
       petName: '',
       petBreed: '',
       petBirthday: '',
-      petPhoto: {},
+      petPhoto: { name: ''},
+      petGender: '',
+      petSpayedOrNeutered: '',
+      petWeight: '',
     },
     validate,
   });
