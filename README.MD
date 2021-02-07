@@ -25,10 +25,10 @@ Esse formulário segue a mesma estrutura que esse formulário [aqui](https://git
   O useForm possui duas funções para cuidar da entrada dos inputs:
 
   <p align="center"><img src="https://i.pinimg.com/564x/6a/dd/72/6add726416ea9b3239e05da9fadbdfb4.jpg" alt="code print - handleChange" /></p>
-  A função *handleChange* cuida de inputs de texto e checkboxes.
+  A função handleChange cuida de inputs de texto e checkboxes.
 
   <p align="center"><img src="https://i.pinimg.com/564x/e1/cb/fc/e1cbfcdccff7e8176f8df260684a605f.jpg" alt="code print - handleFile" /></p>
-  A função *handleFile* cuida de arquivos, no caso deste formulário uma imagem. E também impede o anexo de arquivos inválidos.
+  A função handleFile cuida de arquivos, no caso deste formulário uma imagem. E também impede o anexo de arquivos inválidos.
 
   #### Usando o useForm
 
