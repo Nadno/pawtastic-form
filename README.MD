@@ -4,15 +4,15 @@ Esse formulário segue a mesma estrutura que esse formulário [aqui](https://git
 
 ### Mobile
 
-![mobile print](https://i.pinimg.com/564x/c9/46/02/c94602268016699abd2a12c9223d124d.jpg)
+<p align="center"><img src="https://i.pinimg.com/564x/c9/46/02/c94602268016699abd2a12c9223d124d.jpg" alt="mobile print" /></p>
 
 ### Ipad
 
-![ipad print](https://i.pinimg.com/564x/4c/f0/6b/4cf06bdd2fd445c001f839906a02ae45.jpg)
+<p align="center"><img src="https://i.pinimg.com/564x/4c/f0/6b/4cf06bdd2fd445c001f839906a02ae45.jpg" alt="ipad print" /></p>
 
 ### Desktop
 
-![desktop print](https://i.pinimg.com/564x/52/7d/28/527d280960c268a1fb7b633c21959041.jpg)
+<p align="center"><img src="https://i.pinimg.com/564x/52/7d/28/527d280960c268a1fb7b633c21959041.jpg" alt="desktop print" /></p>
 
 <h2 id="funcionalidade">Funcionalidades</h2>
 
