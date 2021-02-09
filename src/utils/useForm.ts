@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { CustomChangeEvent } from '../types/form';
 
 interface UseForm<ini> {
@@ -14,15 +14,19 @@ export default function useForm<iniValues>({
   const [values, setValues] = useState<iniValues>(initialValues);
   const [changedValue, setChangedValue] = useState('');
 
+  const validateValues = useCallback((changedValue: string, values: any) => {
+    setErros(validate(changedValue, values));
+  }, [validate])
+
   useEffect(() => {
     validateValues(changedValue, values);
-  }, [values]);
+  }, [values, changedValue, validateValues]);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
   }
 
-  function handleFile({ name, files }: HTMLInputElement) {
+  const handleFile = useCallback(({ name, files }: HTMLInputElement) => {
     const [file] = files as FileList;
 
     const error = validate(name, { [name]: file });
@@ -37,9 +41,9 @@ export default function useForm<iniValues>({
         [name]: file,
       }));
     }
-  }
+  }, [validate]);
 
-  function handleChange({ target }: CustomChangeEvent) {
+  const handleChange = useCallback(({ target }: CustomChangeEvent) => {
     const { name, type } = target;
 
     if (type === 'file') return handleFile(target);
@@ -55,13 +59,10 @@ export default function useForm<iniValues>({
 
       return newValue;
     });
-  }
+  }, [handleFile]);
 
-  function validateValues(changedValue: string, values: any) {
-    setErros(validate(changedValue, values));
-  }
 
-  function checkInputs(names: string[], isOkCallback: Function) {
+  const checkInputs = useCallback((names: string[], isOkCallback: Function) => {
     const { error, hasError } = validate(names, values);
     if (hasError) {
       setErros(error);
@@ -69,7 +70,7 @@ export default function useForm<iniValues>({
     }
 
     isOkCallback();
-  }
+  }, [values, validate])
 
   return {
     errors,
