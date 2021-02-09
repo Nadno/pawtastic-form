@@ -1,12 +1,8 @@
-import { ChangeEvent } from "react";
+import { AllHTMLAttributes, ChangeEvent } from "react";
 
-interface CustomInputProps {
-  id?: string;
-  name: string;
+interface CustomInputProps extends AllHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
-  placeholder?: string;
-  autoFocus?: boolean;
   handleChange(e: ChangeEvent): void;
 }
 
