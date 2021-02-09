@@ -1,15 +1,17 @@
-import React from 'react';
-import CustomInputProps from '../../types/inputs';
+import React, { AllHTMLAttributes, ChangeEvent } from 'react';
+
 import './index.scss';
 
-interface Props extends CustomInputProps {
-  value?: boolean;
+interface Props extends AllHTMLAttributes<HTMLInputElement> {
+  checkValue?: boolean;
+  error?: string;
+  handleChange(e: ChangeEvent): void;
 }
 
-const Checkbox = ({ id, name, label, error, value, handleChange }: Props) => {
+const Checkbox: React.FC<Props> = ({ id, label, error, checkValue, handleChange, ...props }) => {
   return (
     <div className="check-field">
-      <input type="checkbox" id={id} name={name} checked={value} onChange={handleChange} />
+      <input type="checkbox" id={id} checked={checkValue} onChange={handleChange} {...props} />
       <div className="check-field__label">
         <label htmlFor={id} className="check-field__title">
           <span className="check"></span>

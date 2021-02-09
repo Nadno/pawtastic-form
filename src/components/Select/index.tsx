@@ -10,7 +10,7 @@ interface Props {
   columns: 2 | 4;
 }
 
-const Select = ({ id, title, error, children, columns }: Props) => {
+const Select: React.FC<Props> = ({ id, title, error, children, columns }) => {
   const columnsOption = {
     '2': 'two',
     '4': 'four',
@@ -37,7 +37,7 @@ interface OptionProps extends CustomInputProps {
   children?: any;
 }
 
-Select.Option = ({ id, name, label, children, handleChange }: OptionProps) => (
+export const Option: React.FC<OptionProps> = ({ id, name, label, children, handleChange }) => (
   <>
     <input
       type="radio"

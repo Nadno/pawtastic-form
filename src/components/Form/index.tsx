@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import useForm from '../../utils/useForm';
 import { useStep } from '../../contexts/useStep';
@@ -11,12 +11,12 @@ import Fieldset from '../../layouts/Fieldset';
 import Button from '../Button';
 import DefaultInput from '../DefaultInput';
 import Checkbox from '../Checkbox';
-import Select from '../Select';
+import Select, { Option } from '../Select';
 import PetType from '../PetType';
 import PhotoInput from '../PhotoInput';
+import Textarea from '../Textarea';
 
 import './index.scss';
-import Textarea from '../Textarea';
 
 const Form = () => {
   const {
@@ -41,7 +41,7 @@ const Form = () => {
       petName: '',
       petBreed: '',
       petBirthday: '',
-      petPhoto: { name: ''},
+      petPhoto: { name: '' },
       petGender: '',
       petSpayedOrNeutered: '',
       petWeight: '',
@@ -57,17 +57,17 @@ const Form = () => {
     setInputNames(names);
   }, [step]);
 
-  const nextStep = () => {
-   checkInputs(inputNames, () => {
+  const nextStep = useCallback(() => {
+    checkInputs(inputNames, () => {
       next();
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
     });
-  };
+  }, [checkInputs, inputNames, next]);
 
-  const handleSelectAllFavoriteThings = (e: ChangeEvent) => {
+  const handleSelectAllFavoriteThings = useCallback((e: ChangeEvent) => {
     const nameOfThings = [
       'kisses',
       'walks',
@@ -92,7 +92,7 @@ const Form = () => {
     };
 
     nameOfThings.forEach(checkAndSetState);
-  };
+  }, [handleChange]);
 
   const is = Object.assign(Object.create(null), {
     firstStep: step === 0,
@@ -162,7 +162,7 @@ const Form = () => {
             <Checkbox
               id="policy"
               name="policy"
-              value={values.policy}
+              checkValue={values.policy}
               error={errors.policy}
               handleChange={handleChange}
               label="I have read the Privacy and agree to the Terms of Service."
@@ -241,38 +241,38 @@ const Form = () => {
               error={errors.petType}
               columns={4}
             >
-              <Select.Option
+              <Option
                 id="dog"
                 name="petType"
                 label="Dog"
                 handleChange={handleChange}
               >
                 <PetType type="dog" />
-              </Select.Option>
-              <Select.Option
+              </Option>
+              <Option
                 id="cat"
                 name="petType"
                 label="Cat"
                 handleChange={handleChange}
               >
                 <PetType type="cat" />
-              </Select.Option>
-              <Select.Option
+              </Option>
+              <Option
                 id="birdy"
                 name="petType"
                 label="Birdy"
                 handleChange={handleChange}
               >
                 <PetType type="birdy" />
-              </Select.Option>
-              <Select.Option
+              </Option>
+              <Option
                 id="hamster"
                 name="petType"
                 label="Hamster"
                 handleChange={handleChange}
               >
                 <PetType type="hamster" />
-              </Select.Option>
+              </Option>
             </Select>
 
             <span className="step__info">
@@ -338,14 +338,14 @@ const Form = () => {
                 error={errors.petGender}
                 columns={2}
               >
-                <Select.Option
+                <Option
                   id="male"
                   name="petGender"
                   label="Male"
                   handleChange={handleChange}
                 />
 
-                <Select.Option
+                <Option
                   id="female"
                   name="petGender"
                   label="Female"
@@ -358,14 +358,14 @@ const Form = () => {
                 error={errors.petSpayedOrNeutered}
                 columns={2}
               >
-                <Select.Option
+                <Option
                   id="SONYes"
                   label="Yes"
                   name="petSpayedOrNeutered"
                   handleChange={handleChange}
                 />
 
-                <Select.Option
+                <Option
                   id="SONNo"
                   label="No"
                   name="petSpayedOrNeutered"
@@ -380,26 +380,26 @@ const Form = () => {
               error={errors.petWeight}
               columns={4}
             >
-              <Select.Option
+              <Option
                 id="5/10"
                 label="5/10"
                 name="petWeight"
                 handleChange={handleChange}
               />
 
-              <Select.Option
+              <Option
                 id="10/15"
                 label="10/15"
                 name="petWeight"
                 handleChange={handleChange}
               />
-              <Select.Option
+              <Option
                 id="15/20"
                 label="15/20"
                 name="petWeight"
                 handleChange={handleChange}
               />
-              <Select.Option
+              <Option
                 id="20/25"
                 label="20/25"
                 name="petWeight"
