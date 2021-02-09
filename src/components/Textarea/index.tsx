@@ -1,13 +1,12 @@
-import React from 'react';
-import CustomInputProps from '../../types/inputs'
-;
+import React, { AllHTMLAttributes, ChangeEvent } from 'react';
 import './index.scss';
 
-interface Props extends CustomInputProps {
-  maxLength: number;
+interface Props extends AllHTMLAttributes<HTMLTextAreaElement> {
+  label: string;
+  handleChange(e: ChangeEvent): void;
 }
 
-const Textarea = ({ id, label, handleChange, ...props }: Props) => {
+const Textarea: React.FC<Props> = ({ id, label, handleChange, ...props }) => {
   return (
     <div className="text-field">
       <label htmlFor={id} className="text-field__title">
