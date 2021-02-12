@@ -113,7 +113,7 @@ const Form = () => {
         {is.firstStep && (
           <Fieldset
             id="first"
-            title="First, let's make sure we serve your area."
+            label="First, let's make sure we serve your area."
           >
             <DefaultInput
               id="postal-code"
@@ -127,7 +127,7 @@ const Form = () => {
         )}
 
         {is.secondStep && (
-          <Fieldset title="Good news! We care for pets in your area. Let's">
+          <Fieldset label="Good news! We care for pets in your area. Let's">
             <DefaultInput
               type="email"
               id="email"
@@ -175,10 +175,7 @@ const Form = () => {
         )}
 
         {is.thirdStep && (
-          <Fieldset title="Hello! Please tell us a little bit about yourself.">
-            <span className="alert" role="alert">
-              Human profile
-            </span>
+          <Fieldset label="Hello! Please tell us a little bit about yourself.">
             <div className="step__field-block">
               <DefaultInput
                 id="given-name"
@@ -188,6 +185,7 @@ const Form = () => {
                 error={errors.firstName}
                 handleChange={handleChange}
                 placeholder="Your first name"
+                autoFocus
               />
               <DefaultInput
                 id="family-name"
@@ -235,7 +233,7 @@ const Form = () => {
 
         {is.fourthStep && (
           <Fieldset
-            title={
+          label={
               <>
                 Nice to meet you, {values.firstName}. <br />
                 Tell us all about your furry, feathery, or scaley friend.
@@ -253,6 +251,7 @@ const Form = () => {
                 name="petType"
                 label="Dog"
                 handleChange={handleChange}
+                autoFocus={true}
               >
                 <PetType type="dog" />
               </Option>
@@ -292,7 +291,7 @@ const Form = () => {
 
         {is.fifthStep && (
           <Fieldset
-            title={`Yay, we love ${values.petType}! Give us the basics about your pup.`}
+          label={`Yay, we love ${values.petType}! Give us the basics about your pup.`}
           >
             <div className="step__field-block">
               <DefaultInput
@@ -303,6 +302,7 @@ const Form = () => {
                 error={errors.petName}
                 handleChange={handleChange}
                 placeholder="Pet's name"
+                autoFocus
               />
 
               <PhotoInput
@@ -416,7 +416,7 @@ const Form = () => {
         )}
 
         {is.sixthStep && (
-          <Fieldset title="Thanks! Now give us all the details about Ginger.">
+          <Fieldset label="Thanks! Now give us all the details about Ginger.">
             <div className="favorite-things" title="Favorite things">
               <Checkbox
                 id="select-all"
@@ -485,7 +485,7 @@ const Form = () => {
           </Fieldset>
         )}
         {is.seventhStep && (
-          <Fieldset title="Okay, Ginger's all set! We can't wait to meet het."></Fieldset>
+          <Fieldset label="Okay, Ginger's all set! We can't wait to meet het."></Fieldset>
         )}
       </div>
 
