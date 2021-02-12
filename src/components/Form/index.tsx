@@ -485,15 +485,16 @@ const Form = () => {
 
       <footer className="form__footer">
         <div className="step__buttons">
-          <Button onClick={back} id="back-btn" disabled={step <= 1}>
+          <Button onClick={back} id="back-btn" disabled={step <= 1} aria-label="Previous step">
             Back
           </Button>
-          <Button onClick={nextStep} type="submit">
+          <Button onClick={nextStep} type="submit" aria-label="Next step">
             Next
           </Button>
         </div>
         <p className="member">
-          Already a member? <a href="/">Log in</a>
+          <span>Already a member?</span>
+          <a href="#" title="login" aria-label="Already a member? Log in">Log in</a>
         </p>
       </footer>
     </form>
