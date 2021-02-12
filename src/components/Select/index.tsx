@@ -33,11 +33,13 @@ const Select: React.FC<Props> = ({ id, title, error, children, columns }) => {
   );
 };
 
-interface OptionProps extends CustomInputProps {
-  children?: any;
-}
-
-export const Option: React.FC<OptionProps> = ({ id, name, label, children, handleChange }) => (
+export const Option: React.FC<CustomInputProps> = ({
+  id,
+  name,
+  label,
+  children,
+  handleChange,
+}) => (
   <>
     <input
       type="radio"

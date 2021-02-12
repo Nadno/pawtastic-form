@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import './index.scss';
 
-interface Props {
-  children: any;
-  [propName: string]: any;
-}
-
-const Button = ({ children, ...props }: Props) => {
+const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  children,
+  ...props
+}) => {
   return (
     <button className="button" {...props}>
       {children}
