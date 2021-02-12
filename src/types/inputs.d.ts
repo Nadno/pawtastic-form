@@ -1,6 +1,6 @@
-import { AllHTMLAttributes, ChangeEvent } from "react";
+import { ChangeEvent, InputHTMLAttributes } from "react";
 
-interface CustomInputProps extends AllHTMLAttributes<HTMLInputElement> {
+interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
   handleChange(e: ChangeEvent): void;
