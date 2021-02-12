@@ -14,7 +14,7 @@ const DefaultInput: React.FC<CustomInputProps> = ({
       {label}
     </label>
     <input type="text" id={id} onChange={handleChange} autoComplete="on" {...props} />
-    {error && <span className="error-field">{error}</span>}
+    {error && <span className="error-field" role="alert">{label} {error}</span>}
   </div>
 );
 

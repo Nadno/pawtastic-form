@@ -21,14 +21,14 @@ const Select: React.FC<Props> = ({ id, title, error, children, columns }) => {
       <span className="select-field__title">{title}</span>
 
       <div
-        className={`select ${error && 'error'} ${
+        className={`select ${error ? 'error' : ''} ${
           columnsOption[columns]
         }-columns`}
         id={id}
       >
         {children}
       </div>
-      <span className="error-field">{error}</span>
+      <span className="error-field" role="alert">{error}</span>
     </div>
   );
 };
@@ -39,20 +39,22 @@ export const Option: React.FC<CustomInputProps> = ({
   label,
   children,
   handleChange,
+  ...props
 }) => (
-  <>
+  <div className="select__option">
     <input
       type="radio"
       name={name}
       id={id}
       value={id}
       onChange={handleChange}
+      {...props}
     />
     <label htmlFor={id} className="option__legend">
       {children}
       <span>{label}</span>
     </label>
-  </>
+  </div>
 );
 
 export default Select;
