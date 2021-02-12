@@ -1,16 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { FieldsetHTMLAttributes, ReactNode } from 'react';
 
 import './index.scss';
 
-interface Props {
-  title: string | ReactNode;
-  children?: any;
-  [propName: string]: any;
+interface Props extends FieldsetHTMLAttributes<HTMLFieldSetElement> {
+  label: string | ReactNode;
 }
 
-const Fieldset = ({ id, title, children, ...props }: Props) => (
-  <fieldset className="step" id={id} {...props}>
-    <legend className="step__title">{title}</legend>
+const Fieldset: React.FC<Props> = ({ label, children, ...props }) => (
+  <fieldset className="step" {...props}>
+    <legend className="step__title">{label}</legend>
     {children}
   </fieldset>
 );
