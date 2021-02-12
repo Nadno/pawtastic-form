@@ -19,10 +19,11 @@ const ShowStep = () => {
             type="radio"
             className="select__input"
             name="step"
+            id="first"
             checked={humanProf}
             readOnly
           />
-          <label> Human profile </label>
+          <label htmlFor="first">Human profile</label>
           <span className="select__check"></span>
         </div>
 
@@ -31,10 +32,11 @@ const ShowStep = () => {
             type="radio"
             className="select__input"
             name="step"
+            id="second"
             checked={petBasics}
             readOnly
           />
-          <label> Pet basics </label>
+          <label htmlFor="second"> Pet basics </label>
           <span className="select__check"></span>
         </div>
 
@@ -43,10 +45,11 @@ const ShowStep = () => {
             type="radio"
             className="select__input"
             name="step"
+            id="third"
             checked={petDetails}
             readOnly
           />
-          <label> Pet details </label>
+          <label htmlFor="third"> Pet details </label>
           <span className="select__check"></span>
         </div>
         <div className="select">
@@ -54,10 +57,11 @@ const ShowStep = () => {
             type="radio"
             className="select__input"
             name="step"
+            id="fourth"
             checked={petConfirm}
             readOnly
           />
-          <label> Confirm </label>
+          <label htmlFor="fourth"> Confirm </label>
           <span className="select__check"></span>
         </div>
       </div>
