@@ -67,32 +67,35 @@ const Form = () => {
     });
   }, [checkInputs, inputNames, next]);
 
-  const handleSelectAllFavoriteThings = useCallback((e: ChangeEvent) => {
-    const nameOfThings = [
-      'kisses',
-      'walks',
-      'barking',
-      'snuggling',
-      'treats',
-      'playingFetch',
-      'naps',
-      'toys',
-    ];
+  const handleSelectAllFavoriteThings = useCallback(
+    (e: ChangeEvent) => {
+      const nameOfThings = [
+        'kisses',
+        'walks',
+        'barking',
+        'snuggling',
+        'treats',
+        'playingFetch',
+        'naps',
+        'toys',
+      ];
 
-    const checkAndSetState = (name: string) => {
-      const $input = document.querySelector<HTMLInputElement>(
-        `input[name=${name}]`
-      );
+      const checkAndSetState = (name: string) => {
+        const $input = document.querySelector<HTMLInputElement>(
+          `input[name=${name}]`
+        );
 
-      if ($input) {
-        const { checked } = e.target as HTMLInputElement;
-        $input.checked = checked;
-        handleChange({ target: $input });
-      }
-    };
+        if ($input) {
+          const { checked } = e.target as HTMLInputElement;
+          $input.checked = checked;
+          handleChange({ target: $input });
+        }
+      };
 
-    nameOfThings.forEach(checkAndSetState);
-  }, [handleChange]);
+      nameOfThings.forEach(checkAndSetState);
+    },
+    [handleChange]
+  );
 
   const is = Object.assign(Object.create(null), {
     firstStep: step === 0,
@@ -113,7 +116,7 @@ const Form = () => {
             title="First, let's make sure we serve your area."
           >
             <DefaultInput
-              id="zip-code"
+              id="postal-code"
               name="zipCode"
               label="Zip code"
               value={values.zipCode}
@@ -134,18 +137,19 @@ const Form = () => {
               error={errors.email}
               handleChange={handleChange}
               placeholder="Enter your e-mail"
+              autoFocus
             />
 
             <div className="step__field-block">
               <DefaultInput
                 type="password"
-                id="password"
+                id="new-password"
                 name="password"
                 label="Password"
                 value={values.password}
                 error={errors.password}
                 handleChange={handleChange}
-                placeholder="••••••••"
+                placeholder="Enter your password"
               />
               <DefaultInput
                 type="password"
@@ -155,7 +159,7 @@ const Form = () => {
                 value={values.confirm}
                 error={errors.confirm}
                 handleChange={handleChange}
-                placeholder="••••••••"
+                placeholder="Enter your password"
               />
             </div>
 
@@ -172,9 +176,12 @@ const Form = () => {
 
         {is.thirdStep && (
           <Fieldset title="Hello! Please tell us a little bit about yourself.">
+            <span className="alert" role="alert">
+              Human profile
+            </span>
             <div className="step__field-block">
               <DefaultInput
-                id="first-name"
+                id="given-name"
                 name="firstName"
                 label="First name"
                 value={values.firstName}
@@ -183,7 +190,7 @@ const Form = () => {
                 placeholder="Your first name"
               />
               <DefaultInput
-                id="last-name"
+                id="family-name"
                 name="lastName"
                 label="Last name"
                 value={values.lastName}
@@ -195,7 +202,7 @@ const Form = () => {
 
             <div className="step__field-block">
               <DefaultInput
-                id="phone"
+                id="tel-national"
                 name="phone"
                 label="Phone"
                 value={values.phone}
@@ -204,7 +211,7 @@ const Form = () => {
                 placeholder="01 90000-0000"
               />
               <DefaultInput
-                id="alt-phone"
+                id="alt-tel"
                 name="altPhone"
                 label="Phone alt"
                 value={values.altPhone}
@@ -289,7 +296,6 @@ const Form = () => {
           >
             <div className="step__field-block">
               <DefaultInput
-                type="text"
                 id="pet-name"
                 name="petName"
                 label="Name"
@@ -300,7 +306,7 @@ const Form = () => {
               />
 
               <PhotoInput
-                id="pet-photo"
+                id="photo"
                 name="petPhoto"
                 label={values.petPhoto.name || 'Upload a image'}
                 error={errors.petPhoto}
@@ -321,7 +327,7 @@ const Form = () => {
               />
               <DefaultInput
                 type="date"
-                id="pet-birthday"
+                id="bday"
                 name="petBirthday"
                 label="Birthday"
                 value={values.petBirthday}
@@ -485,7 +491,12 @@ const Form = () => {
 
       <footer className="form__footer">
         <div className="step__buttons">
-          <Button onClick={back} id="back-btn" disabled={step <= 1} aria-label="Previous step">
+          <Button
+            onClick={back}
+            id="back-btn"
+            disabled={step <= 1}
+            aria-label="Previous step"
+          >
             Back
           </Button>
           <Button onClick={nextStep} type="submit" aria-label="Next step">
@@ -494,7 +505,9 @@ const Form = () => {
         </div>
         <p className="member">
           <span>Already a member?</span>
-          <a href="#" title="login" aria-label="Already a member? Log in">Log in</a>
+          <a href="#" title="login" aria-label="Already a member? Log in">
+            Log in
+          </a>
         </p>
       </footer>
     </form>
