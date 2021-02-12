@@ -65,7 +65,7 @@ const ShowStep = () => {
   }
 
   return (
-    <div className="why-us">
+    <section className="why-us" tabIndex={0}>
       <h2 className="why-title">Why our service?</h2>
       <ol className="answer-list">
         <li className="why-answer">
@@ -78,7 +78,7 @@ const ShowStep = () => {
           <p>Updates and pics for every</p>
         </li>
       </ol>
-    </div>
+    </section>
   );
 };
 
