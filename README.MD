@@ -46,6 +46,6 @@ Esse formulário segue a mesma estrutura que esse formulário [aqui](https://git
 
   A função mais importante para a validação é a _validInput_ que recebe apenas o nome do input, e pega a função de validação correspondente a esse input, e caso não possua uma, recebe uma função padrão, que serve para maioria dos inputs. Então repassa para a função o valor e o nome do input recebido. Dessa maneira a função pode ser reaproveitada, sendo usada para validar um único input, ou vários como é o caso do formulário, que é dividido em fazes. E antes de passar para uma próxima faze, todos inputs da faze atual são validados novamente, e caso um input possua um valor inválido, o usuário é impedido de seguir adiante.
 
-- ### Fazes do formulário
+- ### Fases do formulário
 
   Para dividir o formulário em fazes, utilizei do **context**, para prover um contexto geral, e evitar de passar props para os componentes que fazem uso da variável **step**. Criando um segundo hook _useStep_, qualquer componente pode fazer o uso do estado atual do formulário, tornando possível mostrar um progresso ao usuário no componente a esquerda (_quando em desktop_) e fazer a _renderização condicional_ de fieldsets diferentes. O _useStep_ também é utilizado por um terceiro componente, que faz a transição de imagens, que mudam conforme o formulário é avançado.
